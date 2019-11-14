@@ -174,17 +174,86 @@
 
 
 
+// Bind , call And apply
 
+// var john = {
+//     name: 'john',
+//     age: 25,
+//     job: 'designer',
+//     presentation: function(occasion, timeOfDay){
+//         if(occasion === 'formal'){
+//             console.log('Good ' + timeOfDay + '. My name is ' + this.name + ', I am ' + this.age + ' years old, I am a ' + this.job);
+//         } else if(occasion === 'casual'){
+//             console.log('Hey everyone '  + '. My name is ' + this.name + ', I am ' + this.age + ' years old, I am a ' + this.job + ' Have a great ' + timeOfDay);
+//         }
+//     }
+// }
+// // john.presentation('formal', 'morning');
 
+// var emily = {
+//     name: 'emily',
+//     age: 30,
+//     job: 'teacher'
+// }
 
+// john.presentation.call('emily','casual','evening');
 
+// var johnCasual = john.presentation.bind('john', 'casual');
+// johnCasual('afternoon');
 
+// john.presentation.apply('john', ['formal', 'morning'])
 
+// var emilyCasual = john.presentation.bind('emily','casual');
+// emilyCasual('afternoon');
 
+(function() {
+    function Question(question, answers, correctAnswer){
+        this.question = question;
+        this.answers = answers;
+        this.correctAnswer = correctAnswer; 
+    }
+    
+    Question.prototype.displayQuestion = function(){
+        console.log(this.question);
+        for (let index = 0; index < this.answers.length; index++) {
+            console.log(index + " - " + this.answers[index]);
+            
+        }
+    }
+    
+    Question.prototype.checkAnswer = function(){
+        if(ans === this.correctAnswer){
+            console.log('Correct answer!');
+        }
+        else{
+            console.log('Wrong answer');
+        }
+    }
+    
+    var q1 = new Question('What is the name of the course tutor', ['Jack', 'Max', 'Jonas'], 2);
+    var q2 = new Question('Is Javascript the best language', ['yes', 'no'], 0);
+    var q3 = new Question('How do You describe Javascript', ['boring', 'fun', 'tiring'], 1);
+    
+    var questions = [q1,q2,q3];
 
+    function nextQuestion(){
+    
+        var n = Math.floor(Math.random() * questions.length);
+    
+        questions[n].displayQuestion();
+    
+        var ans = parseInt(prompt('Please select the correct answer'));
+    
 
+        if(ans !== 'exit'){
+            questions[n].checkAnswer(ans);
 
-
+            nextQuestion();
+        }
+       
+    }
+    nextQuestion();
+})();
 
 
 
